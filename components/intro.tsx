@@ -1,5 +1,6 @@
 "use client";
 
+import { useSectionInView } from '@/lib/hooks';
 import { motion } from 'framer-motion'
 import Image from 'next/image'
 import Link from 'next/link';
@@ -9,8 +10,10 @@ import { FaGithubSquare } from 'react-icons/fa';
 import { HiDownload } from 'react-icons/hi'
 
 export default function Intro() {
+    const { ref } = useSectionInView('Home', 0.5);
+
     return (
-        <section className='mb-28 max-w-[50rem] text-center'>
+        <section ref={ref} id="home" className='mb-28 max-w-[50rem] text-center scroll-mt-[100rem]'>
             <div className='flex items-center justify-center'>
                 <div className='relative'>
                     <motion.div
@@ -42,7 +45,7 @@ export default function Intro() {
             >
                 <span className="font-bold">Hello, I&apos;m John.</span> I&apos;m a{" "}
                 <span className="font-bold">full-stack developer and software engineer</span> with a keen interest in <span className="font-bold">game development</span>. I&apos;m skilled in{" "}
-                <span className="font-bold">React (Next.js), ASP.NET, Unity, and C++</span>. I also have experience ranges from <span className="font-bold">assembling and troubleshooting computers, managing server configurations</span>.
+                <span className="font-bold">React (Next.js), Angular, ASP.NET, Unity, and C++</span>. I also have experience ranges from <span className="font-bold">assembling and troubleshooting computers, managing server configurations</span>.
             </motion.h1>
 
             <motion.div className='flex flex-col sm:flex-row items-center justify-center gap-2 px-4 text-lg font-medium'
