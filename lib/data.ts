@@ -1,6 +1,6 @@
 import React from "react";
-import { CgWorkAlt } from "react-icons/cg";
-import { FaReact } from "react-icons/fa";
+import { FaComputer } from "react-icons/fa6"
+import { FaServer } from "react-icons/fa";
 import { LuGraduationCap } from "react-icons/lu";
 import tacticsRPG from "@/public/tacticsRPG.png";
 import gameEngine from "@/public/gameEngine.png";
@@ -47,7 +47,7 @@ export const experiencesData = [
     location: "Beijing, China",
     description:
       "I worked as a server operator for 1 year. I also upskilled myself by self taught to other IT fields include software, front end and back end.",
-    icon: React.createElement(CgWorkAlt),
+    icon: React.createElement(FaServer),
     date: "2019 - 2020",
   },
   {
@@ -55,7 +55,7 @@ export const experiencesData = [
     location: "Auckland, NZ",
     description:
       "I worked as a PC operator for 1 year in DTC and half year in PB Tech.",
-    icon: React.createElement(FaReact),
+    icon: React.createElement(FaComputer),
     date: "2020 - 2022",
   },
 ] as const;
