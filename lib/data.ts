@@ -90,6 +90,8 @@ export const skillsData = [
   "JavaScript",
   "TypeScript",
   "React",
+  "Angular",
+  "Bootstrap",
   "Next.js",
   "Node.js",
   "Git",
@@ -103,6 +105,4 @@ export const skillsData = [
   "Unity",
   "Unreal",
   "ASP.NET",
-  "Django",
-  "Framer Motion",
 ] as const;
