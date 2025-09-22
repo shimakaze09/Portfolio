@@ -1,6 +1,5 @@
 version: 2
 updates:
-  # Enable version updates for npm
   - package-ecosystem: "npm"
     directory: "/"
     schedule:
@@ -18,7 +17,6 @@ updates:
     labels:
       - "dependencies"
       - "automated"
-    # Group patch updates together
     groups:
       patch-updates:
         patterns:
@@ -30,14 +28,10 @@ updates:
           - "*"
         update-types:
           - "minor"
-    # Ignore specific packages if needed
     ignore:
-      # Ignore major version updates for specific packages
       - dependency-name: "next"
         update-types: ["version-update:semver-major"]
-      # Add more packages to ignore here if needed
 
-  # Enable version updates for GitHub Actions
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
