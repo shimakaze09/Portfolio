@@ -18,7 +18,7 @@
     "@vercel/speed-insights": "^1.2.0",
     "autoprefixer": "10.4.21",
     "clsx": "^1.2.1",
-    "eslint": "8.43.0",
+    "eslint": "9.36.0",
     "eslint-config-next": "13.4.7",
     "framer-motion": "^12.23.16",
     "next": "14.2.32",
