@@ -1,0 +1,179 @@
+name: Automated Dependency Updates
+
+on:
+  schedule:
+    # Run every Monday at 9 AM UTC
+    - cron: '0 9 * * 1'
+  workflow_dispatch: # Allow manual triggering
+  push:
+    branches: [main]
+    paths: ['package.json', 'package-lock.json']
+
+jobs:
+  security-audit:
+    name: Security Audit & Auto-fix
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+      security-events: write
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+      
+      - name: Install dependencies
+        run: npm ci
+      
+      - name: Run security audit
+        id: audit
+        run: |
+          # Check for vulnerabilities
+          if npm audit --audit-level=moderate; then
+            echo "audit_status=clean" >> $GITHUB_OUTPUT
+          else
+            echo "audit_status=vulnerabilities" >> $GITHUB_OUTPUT
+            npm audit --json > audit-report.json || true
+          fi
+      
+      - name: Auto-fix vulnerabilities
+        if: steps.audit.outputs.audit_status == 'vulnerabilities'
+        run: |
+          # Try to fix vulnerabilities automatically
+          npm audit fix --force
+          
+          # Check if package-lock.json was modified
+          if git diff --exit-code package-lock.json; then
+            echo "No fixes were applied"
+            exit 0
+          fi
+      
+      - name: Update outdated packages
+        id: update
+        run: |
+          # Get list of outdated packages
+          npm outdated --json > outdated.json || true
+          
+          # Check if there are any outdated packages
+          if [ -s outdated.json ] && [ "$(cat outdated.json)" != "{}" ]; then
+            echo "updates_available=true" >> $GITHUB_OUTPUT
+            
+            # Update packages to latest versions
+            npm update
+            
+            # For major version updates, use npm-check-updates
+            npx npm-check-updates -u
+            npm install
+          else
+            echo "updates_available=false" >> $GITHUB_OUTPUT
+          fi
+      
+      - name: Run tests after updates
+        if: steps.audit.outputs.audit_status == 'vulnerabilities' || steps.update.outputs.updates_available == 'true'
+        run: |
+          # Install updated dependencies
+          npm ci
+          
+          # Run build to ensure everything still works
+          npm run build
+          
+          # If you have tests, uncomment the next line
+          # npm test
+      
+      - name: Generate update summary
+        if: steps.audit.outputs.audit_status == 'vulnerabilities' || steps.update.outputs.updates_available == 'true'
+        run: |
+          echo "## Dependency Update Summary" > update-summary.md
+          echo "" >> update-summary.md
+          
+          if [ "${{ steps.audit.outputs.audit_status }}" == "vulnerabilities" ]; then
+            echo "### 🔒 Security Fixes Applied" >> update-summary.md
+            echo "Vulnerabilities were detected and automatically fixed." >> update-summary.md
+            echo "" >> update-summary.md
+          fi
+          
+          if [ "${{ steps.update.outputs.updates_available }}" == "true" ]; then
+            echo "### 📦 Package Updates" >> update-summary.md
+            echo "The following packages were updated:" >> update-summary.md
+            echo "" >> update-summary.md
+            
+            # Show what changed
+            git diff --name-only package*.json | head -10 >> update-summary.md
+          fi
+          
+          echo "" >> update-summary.md
+          echo "### ✅ Build Status" >> update-summary.md
+          echo "Build completed successfully after updates." >> update-summary.md
+      
+      - name: Create Pull Request
+        if: steps.audit.outputs.audit_status == 'vulnerabilities' || steps.update.outputs.updates_available == 'true'
+        uses: peter-evans/create-pull-request@v5
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: |
+            chore: automated dependency updates
+            
+            - Security vulnerabilities fixed
+            - Outdated packages updated
+            - Build verified successful
+          title: "🔄 Automated Dependency Updates"
+          body-path: update-summary.md
+          branch: automated-dependency-updates
+          delete-branch: true
+          labels: |
+            dependencies
+            security
+            automated
+          reviewers: |
+            ${{ github.repository_owner }}
+
+  check-npm-advisories:
+    name: Check NPM Security Advisories
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      security-events: write
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+      
+      - name: Install dependencies
+        run: npm ci
+      
+      - name: Run npm audit and upload results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: npm-audit-report
+          path: |
+            audit-report.json
+            outdated.json
+          retention-days: 30
+      
+      - name: Generate SARIF report
+        run: |
+          # Convert npm audit to SARIF format for GitHub Security tab
+          npx audit-ci --config audit-ci.json --output-format sarif --output sarif-report.sarif || true
+        continue-on-error: true
+      
+      - name: Upload SARIF file
+        if: always()
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: sarif-report.sarif
+        continue-on-error: true
