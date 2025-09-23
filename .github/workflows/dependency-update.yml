@@ -8,6 +8,10 @@ on:
     branches: [main]
     paths: ['package.json', 'package-lock.json']
 
+permissions:
+  contents: write
+  pull-requests: write
+
 jobs:
   security-audit:
     name: Security Audit & Auto-fix
@@ -19,12 +23,12 @@ jobs:
     
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
       
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@1e60f620b9541d16bece96c5465dc8ee9832be0b # v4.0.3
         with:
           node-version: '18'
           cache: 'npm'
@@ -145,7 +149,7 @@ jobs:
       
       - name: Create Pull Request
         if: steps.audit.outputs.audit_status == 'vulnerabilities' || steps.update.outputs.updates_available == 'true'
-        uses: peter-evans/create-pull-request@v5
+        uses: peter-evans/create-pull-request@c5a7806660adbe173f04e3e038b0ccdcd758773c # v6.1.0
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           commit-message: |
@@ -175,10 +179,10 @@ jobs:
     
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
       
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@1e60f620b9541d16bece96c5465dc8ee9832be0b # v4.0.3
         with:
           node-version: '18'
           cache: 'npm'
@@ -187,7 +191,7 @@ jobs:
         run: npm ci
       
       - name: Run npm audit and upload results
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@89ef406dd8d7e03cfd12d9e0a4a378f454709029 # v4.4.0
         if: always()
         with:
           name: npm-audit-report
@@ -203,7 +207,7 @@ jobs:
       
       - name: Upload audit results
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@89ef406dd8d7e03cfd12d9e0a4a378f454709029 # v4.4.0
         with:
           name: npm-audit-results
           path: npm-audit-results.json
