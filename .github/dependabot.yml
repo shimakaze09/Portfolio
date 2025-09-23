@@ -16,7 +16,6 @@ updates:
       include: "scope"
     labels:
       - "dependencies"
-      - "automated"
     groups:
       patch-updates:
         patterns:
@@ -47,4 +46,3 @@ updates:
       include: "scope"
     labels:
       - "github-actions"
-      - "automated"
