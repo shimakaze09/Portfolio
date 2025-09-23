@@ -19,12 +19,12 @@ jobs:
     
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v5
+        uses: actions/checkout@v4
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
       
       - name: Setup Node.js
-        uses: actions/setup-node@v5
+        uses: actions/setup-node@v4
         with:
           node-version: '18'
           cache: 'npm'
@@ -70,10 +70,39 @@ jobs:
       
       - name: Run tests after updates
         if: steps.audit.outputs.audit_status == 'vulnerabilities' || steps.update.outputs.updates_available == 'true'
+        id: build_test
         run: |
           npm ci
           
-          npm run build
+          # Try to build and capture any errors
+          if npm run build 2>&1 | tee build-output.log; then
+            echo "build_status=success" >> $GITHUB_OUTPUT
+            echo "Build completed successfully" >> build-summary.md
+          else
+            echo "build_status=failed" >> $GITHUB_OUTPUT
+            echo "Build failed - checking for common fixes" >> build-summary.md
+            
+            # Check for Tailwind CSS PostCSS plugin issue
+            if grep -q "tailwindcss.*PostCSS plugin" build-output.log; then
+              echo "Detected Tailwind CSS PostCSS plugin issue - attempting fix" >> build-summary.md
+              npm install @tailwindcss/postcss --save-dev
+              
+              # Update postcss.config.js if it exists
+              if [ -f "postcss.config.js" ]; then
+                sed -i "s/tailwindcss:/'@tailwindcss\/postcss':/g" postcss.config.js
+                echo "Updated PostCSS configuration" >> build-summary.md
+              fi
+              
+              # Try building again
+              if npm run build; then
+                echo "build_status=fixed" >> $GITHUB_OUTPUT
+                echo "✅ Build fixed after Tailwind CSS PostCSS update" >> build-summary.md
+              else
+                echo "build_status=still_failed" >> $GITHUB_OUTPUT
+                echo "❌ Build still failing after attempted fix" >> build-summary.md
+              fi
+            fi
+          fi
       
       - name: Generate update summary
         if: steps.audit.outputs.audit_status == 'vulnerabilities' || steps.update.outputs.updates_available == 'true'
@@ -97,7 +126,22 @@ jobs:
           
           echo "" >> update-summary.md
           echo "### ✅ Build Status" >> update-summary.md
-          echo "Build completed successfully after updates." >> update-summary.md
+          
+          # Include build summary if it exists
+          if [ -f "build-summary.md" ]; then
+            cat build-summary.md >> update-summary.md
+          else
+            echo "Build completed successfully after updates." >> update-summary.md
+          fi
+          
+          # Add error logs if build failed
+          if [ "${{ steps.build_test.outputs.build_status }}" == "still_failed" ] && [ -f "build-output.log" ]; then
+            echo "" >> update-summary.md
+            echo "### ⚠️ Build Error Details" >> update-summary.md
+            echo "```" >> update-summary.md
+            tail -50 build-output.log >> update-summary.md
+            echo "```" >> update-summary.md
+          fi
       
       - name: Create Pull Request
         if: steps.audit.outputs.audit_status == 'vulnerabilities' || steps.update.outputs.updates_available == 'true'
@@ -109,8 +153,8 @@ jobs:
             
             - Security vulnerabilities fixed
             - Outdated packages updated
-            - Build verified successful
-          title: "🔄 Automated Dependency Updates"
+            ${{ steps.build_test.outputs.build_status == 'fixed' && '- Build fixes applied automatically' || '- Build verified successful' }}
+          title: "${{ steps.build_test.outputs.build_status == 'still_failed' && '🚨 Dependency Updates (Build Issues)' || '🔄 Automated Dependency Updates' }}"
           body-path: update-summary.md
           branch: automated-dependency-updates
           delete-branch: true
@@ -118,6 +162,7 @@ jobs:
             dependencies
             security
             automated
+            ${{ steps.build_test.outputs.build_status == 'still_failed' && 'needs-review' || '' }}
           reviewers: |
             ${{ github.repository_owner }}
 
@@ -130,10 +175,10 @@ jobs:
     
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v5
+        uses: actions/checkout@v4
       
       - name: Setup Node.js
-        uses: actions/setup-node@v5
+        uses: actions/setup-node@v4
         with:
           node-version: '18'
           cache: 'npm'
