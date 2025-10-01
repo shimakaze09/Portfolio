@@ -1,0 +1,125 @@
+
+> portfolio@0.1.0 build
+> next build
+
+⚠ No build cache found. Please configure build caching for faster rebuilds. Read more: https://nextjs.org/docs/messages/no-cache
+Attention: Next.js now collects completely anonymous telemetry regarding usage.
+This information is used to shape Next.js' roadmap and prioritize features.
+You can learn more, including how to opt-out if you'd not like to participate in this anonymous program, by visiting the following URL:
+https://nextjs.org/telemetry
+
+   ▲ Next.js 15.5.4
+
+   Creating an optimized production build ...
+Failed to compile.
+
+./app/globals.css.webpack[javascript/auto]!=!./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[14].oneOf[10].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[14].oneOf[10].use[3]!./app/globals.css
+Error: It looks like you're trying to use `tailwindcss` directly as a PostCSS plugin. The PostCSS plugin has moved to a separate package, so to continue using Tailwind CSS with PostCSS you'll need to install `@tailwindcss/postcss` and update your PostCSS configuration.
+    at We (/home/runner/work/Portfolio/Portfolio/node_modules/tailwindcss/dist/lib.js:35:2121)
+    at LazyResult.runOnRoot (/home/runner/work/Portfolio/Portfolio/node_modules/next/node_modules/postcss/lib/lazy-result.js:329:16)
+    at LazyResult.runAsync (/home/runner/work/Portfolio/Portfolio/node_modules/next/node_modules/postcss/lib/lazy-result.js:258:26)
+    at LazyResult.async (/home/runner/work/Portfolio/Portfolio/node_modules/next/node_modules/postcss/lib/lazy-result.js:160:30)
+    at LazyResult.then (/home/runner/work/Portfolio/Portfolio/node_modules/next/node_modules/postcss/lib/lazy-result.js:404:17)
+
+Import trace for requested module:
+./app/globals.css.webpack[javascript/auto]!=!./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[14].oneOf[10].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[14].oneOf[10].use[3]!./app/globals.css
+./app/globals.css
+
+./node_modules/react-vertical-timeline-component/style.min.css.webpack[javascript/auto]!=!./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[14].oneOf[10].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[14].oneOf[10].use[3]!./node_modules/react-vertical-timeline-component/style.min.css
+Error: It looks like you're trying to use `tailwindcss` directly as a PostCSS plugin. The PostCSS plugin has moved to a separate package, so to continue using Tailwind CSS with PostCSS you'll need to install `@tailwindcss/postcss` and update your PostCSS configuration.
+    at We (/home/runner/work/Portfolio/Portfolio/node_modules/tailwindcss/dist/lib.js:35:2121)
+    at LazyResult.runOnRoot (/home/runner/work/Portfolio/Portfolio/node_modules/next/node_modules/postcss/lib/lazy-result.js:329:16)
+    at LazyResult.runAsync (/home/runner/work/Portfolio/Portfolio/node_modules/next/node_modules/postcss/lib/lazy-result.js:258:26)
+    at LazyResult.async (/home/runner/work/Portfolio/Portfolio/node_modules/next/node_modules/postcss/lib/lazy-result.js:160:30)
+    at LazyResult.then (/home/runner/work/Portfolio/Portfolio/node_modules/next/node_modules/postcss/lib/lazy-result.js:404:17)
+
+Import trace for requested module:
+./node_modules/react-vertical-timeline-component/style.min.css.webpack[javascript/auto]!=!./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[14].oneOf[10].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[14].oneOf[10].use[3]!./node_modules/react-vertical-timeline-component/style.min.css
+./node_modules/react-vertical-timeline-component/style.min.css
+./components/experience.tsx
+./app/page.tsx
+
+./app/globals.css
+Error: It looks like you're trying to use `tailwindcss` directly as a PostCSS plugin. The PostCSS plugin has moved to a separate package, so to continue using Tailwind CSS with PostCSS you'll need to install `@tailwindcss/postcss` and update your PostCSS configuration.
+    at We (/home/runner/work/Portfolio/Portfolio/node_modules/tailwindcss/dist/lib.js:35:2121)
+    at LazyResult.runOnRoot (/home/runner/work/Portfolio/Portfolio/node_modules/next/node_modules/postcss/lib/lazy-result.js:329:16)
+    at LazyResult.runAsync (/home/runner/work/Portfolio/Portfolio/node_modules/next/node_modules/postcss/lib/lazy-result.js:258:26)
+    at LazyResult.async (/home/runner/work/Portfolio/Portfolio/node_modules/next/node_modules/postcss/lib/lazy-result.js:160:30)
+    at LazyResult.then (/home/runner/work/Portfolio/Portfolio/node_modules/next/node_modules/postcss/lib/lazy-result.js:404:17)
+    at tryRunOrWebpackError (/home/runner/work/Portfolio/Portfolio/node_modules/next/dist/compiled/webpack/bundle5.js:29:316119)
+    at __webpack_require_module__ (/home/runner/work/Portfolio/Portfolio/node_modules/next/dist/compiled/webpack/bundle5.js:29:131532)
+    at __nested_webpack_require_161494__ (/home/runner/work/Portfolio/Portfolio/node_modules/next/dist/compiled/webpack/bundle5.js:29:130967)
+    at /home/runner/work/Portfolio/Portfolio/node_modules/next/dist/compiled/webpack/bundle5.js:29:131824
+    at symbolIterator (/home/runner/work/Portfolio/Portfolio/node_modules/next/dist/compiled/neo-async/async.js:1:14444)
+    at done (/home/runner/work/Portfolio/Portfolio/node_modules/next/dist/compiled/neo-async/async.js:1:14824)
+    at Hook.eval [as callAsync] (eval at create (/home/runner/work/Portfolio/Portfolio/node_modules/next/dist/compiled/webpack/bundle5.js:14:9224), <anonymous>:15:1)
+    at Hook.CALL_ASYNC_DELEGATE [as _callAsync] (/home/runner/work/Portfolio/Portfolio/node_modules/next/dist/compiled/webpack/bundle5.js:14:6378)
+    at /home/runner/work/Portfolio/Portfolio/node_modules/next/dist/compiled/webpack/bundle5.js:29:130687
+    at symbolIterator (/home/runner/work/Portfolio/Portfolio/node_modules/next/dist/compiled/neo-async/async.js:1:14402)
+-- inner error --
+Error: It looks like you're trying to use `tailwindcss` directly as a PostCSS plugin. The PostCSS plugin has moved to a separate package, so to continue using Tailwind CSS with PostCSS you'll need to install `@tailwindcss/postcss` and update your PostCSS configuration.
+    at We (/home/runner/work/Portfolio/Portfolio/node_modules/tailwindcss/dist/lib.js:35:2121)
+    at LazyResult.runOnRoot (/home/runner/work/Portfolio/Portfolio/node_modules/next/node_modules/postcss/lib/lazy-result.js:329:16)
+    at LazyResult.runAsync (/home/runner/work/Portfolio/Portfolio/node_modules/next/node_modules/postcss/lib/lazy-result.js:258:26)
+    at LazyResult.async (/home/runner/work/Portfolio/Portfolio/node_modules/next/node_modules/postcss/lib/lazy-result.js:160:30)
+    at LazyResult.then (/home/runner/work/Portfolio/Portfolio/node_modules/next/node_modules/postcss/lib/lazy-result.js:404:17)
+    at Object.<anonymous> (/home/runner/work/Portfolio/Portfolio/node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[14].oneOf[10].use[2]!/home/runner/work/Portfolio/Portfolio/node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[14].oneOf[10].use[3]!/home/runner/work/Portfolio/Portfolio/app/globals.css:1:7)
+    at /home/runner/work/Portfolio/Portfolio/node_modules/next/dist/compiled/webpack/bundle5.js:29:962717
+    at Hook.eval [as call] (eval at create (/home/runner/work/Portfolio/Portfolio/node_modules/next/dist/compiled/webpack/bundle5.js:14:9002), <anonymous>:7:1)
+    at Hook.CALL_DELEGATE [as _call] (/home/runner/work/Portfolio/Portfolio/node_modules/next/dist/compiled/webpack/bundle5.js:14:6272)
+    at /home/runner/work/Portfolio/Portfolio/node_modules/next/dist/compiled/webpack/bundle5.js:29:131565
+    at tryRunOrWebpackError (/home/runner/work/Portfolio/Portfolio/node_modules/next/dist/compiled/webpack/bundle5.js:29:316073)
+    at __webpack_require_module__ (/home/runner/work/Portfolio/Portfolio/node_modules/next/dist/compiled/webpack/bundle5.js:29:131532)
+    at __nested_webpack_require_161494__ (/home/runner/work/Portfolio/Portfolio/node_modules/next/dist/compiled/webpack/bundle5.js:29:130967)
+    at /home/runner/work/Portfolio/Portfolio/node_modules/next/dist/compiled/webpack/bundle5.js:29:131824
+    at symbolIterator (/home/runner/work/Portfolio/Portfolio/node_modules/next/dist/compiled/neo-async/async.js:1:14444)
+
+Generated code for /home/runner/work/Portfolio/Portfolio/node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[14].oneOf[10].use[2]!/home/runner/work/Portfolio/Portfolio/node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[14].oneOf[10].use[3]!/home/runner/work/Portfolio/Portfolio/app/globals.css
+
+Import trace for requested module:
+./app/globals.css
+
+./node_modules/react-vertical-timeline-component/style.min.css
+Error: It looks like you're trying to use `tailwindcss` directly as a PostCSS plugin. The PostCSS plugin has moved to a separate package, so to continue using Tailwind CSS with PostCSS you'll need to install `@tailwindcss/postcss` and update your PostCSS configuration.
+    at We (/home/runner/work/Portfolio/Portfolio/node_modules/tailwindcss/dist/lib.js:35:2121)
+    at LazyResult.runOnRoot (/home/runner/work/Portfolio/Portfolio/node_modules/next/node_modules/postcss/lib/lazy-result.js:329:16)
+    at LazyResult.runAsync (/home/runner/work/Portfolio/Portfolio/node_modules/next/node_modules/postcss/lib/lazy-result.js:258:26)
+    at LazyResult.async (/home/runner/work/Portfolio/Portfolio/node_modules/next/node_modules/postcss/lib/lazy-result.js:160:30)
+    at LazyResult.then (/home/runner/work/Portfolio/Portfolio/node_modules/next/node_modules/postcss/lib/lazy-result.js:404:17)
+    at tryRunOrWebpackError (/home/runner/work/Portfolio/Portfolio/node_modules/next/dist/compiled/webpack/bundle5.js:29:316119)
+    at __webpack_require_module__ (/home/runner/work/Portfolio/Portfolio/node_modules/next/dist/compiled/webpack/bundle5.js:29:131532)
+    at __nested_webpack_require_161494__ (/home/runner/work/Portfolio/Portfolio/node_modules/next/dist/compiled/webpack/bundle5.js:29:130967)
+    at /home/runner/work/Portfolio/Portfolio/node_modules/next/dist/compiled/webpack/bundle5.js:29:131824
+    at symbolIterator (/home/runner/work/Portfolio/Portfolio/node_modules/next/dist/compiled/neo-async/async.js:1:14444)
+    at done (/home/runner/work/Portfolio/Portfolio/node_modules/next/dist/compiled/neo-async/async.js:1:14824)
+    at Hook.eval [as callAsync] (eval at create (/home/runner/work/Portfolio/Portfolio/node_modules/next/dist/compiled/webpack/bundle5.js:14:9224), <anonymous>:15:1)
+    at /home/runner/work/Portfolio/Portfolio/node_modules/next/dist/compiled/webpack/bundle5.js:29:130687
+    at symbolIterator (/home/runner/work/Portfolio/Portfolio/node_modules/next/dist/compiled/neo-async/async.js:1:14402)
+    at timesSync (/home/runner/work/Portfolio/Portfolio/node_modules/next/dist/compiled/neo-async/async.js:1:5027)
+-- inner error --
+Error: It looks like you're trying to use `tailwindcss` directly as a PostCSS plugin. The PostCSS plugin has moved to a separate package, so to continue using Tailwind CSS with PostCSS you'll need to install `@tailwindcss/postcss` and update your PostCSS configuration.
+    at We (/home/runner/work/Portfolio/Portfolio/node_modules/tailwindcss/dist/lib.js:35:2121)
+    at LazyResult.runOnRoot (/home/runner/work/Portfolio/Portfolio/node_modules/next/node_modules/postcss/lib/lazy-result.js:329:16)
+    at LazyResult.runAsync (/home/runner/work/Portfolio/Portfolio/node_modules/next/node_modules/postcss/lib/lazy-result.js:258:26)
+    at LazyResult.async (/home/runner/work/Portfolio/Portfolio/node_modules/next/node_modules/postcss/lib/lazy-result.js:160:30)
+    at LazyResult.then (/home/runner/work/Portfolio/Portfolio/node_modules/next/node_modules/postcss/lib/lazy-result.js:404:17)
+    at Object.<anonymous> (/home/runner/work/Portfolio/Portfolio/node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[14].oneOf[10].use[2]!/home/runner/work/Portfolio/Portfolio/node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[14].oneOf[10].use[3]!/home/runner/work/Portfolio/Portfolio/node_modules/react-vertical-timeline-component/style.min.css:1:7)
+    at /home/runner/work/Portfolio/Portfolio/node_modules/next/dist/compiled/webpack/bundle5.js:29:962717
+    at Hook.eval [as call] (eval at create (/home/runner/work/Portfolio/Portfolio/node_modules/next/dist/compiled/webpack/bundle5.js:14:9002), <anonymous>:7:1)
+    at /home/runner/work/Portfolio/Portfolio/node_modules/next/dist/compiled/webpack/bundle5.js:29:131565
+    at tryRunOrWebpackError (/home/runner/work/Portfolio/Portfolio/node_modules/next/dist/compiled/webpack/bundle5.js:29:316073)
+    at __webpack_require_module__ (/home/runner/work/Portfolio/Portfolio/node_modules/next/dist/compiled/webpack/bundle5.js:29:131532)
+    at __nested_webpack_require_161494__ (/home/runner/work/Portfolio/Portfolio/node_modules/next/dist/compiled/webpack/bundle5.js:29:130967)
+    at /home/runner/work/Portfolio/Portfolio/node_modules/next/dist/compiled/webpack/bundle5.js:29:131824
+    at symbolIterator (/home/runner/work/Portfolio/Portfolio/node_modules/next/dist/compiled/neo-async/async.js:1:14444)
+    at done (/home/runner/work/Portfolio/Portfolio/node_modules/next/dist/compiled/neo-async/async.js:1:14824)
+
+Generated code for /home/runner/work/Portfolio/Portfolio/node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[14].oneOf[10].use[2]!/home/runner/work/Portfolio/Portfolio/node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[14].oneOf[10].use[3]!/home/runner/work/Portfolio/Portfolio/node_modules/react-vertical-timeline-component/style.min.css
+
+Import trace for requested module:
+./node_modules/react-vertical-timeline-component/style.min.css
+./components/experience.tsx
+./app/page.tsx
+
+
+> Build failed because of webpack errors
